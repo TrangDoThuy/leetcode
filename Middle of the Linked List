@@ -1,0 +1,26 @@
+/*Given a non-empty, singly linked list with head node head, return a middle node of linked list.
+
+If there are two middle nodes, return the second middle node.
+*/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast_ptr = head;
+        ListNode* low_ptr = head;
+        if(head!=NULL){
+            while(fast_ptr!=NULL && fast_ptr->next!=NULL){
+                low_ptr = low_ptr->next;
+                fast_ptr = fast_ptr->next->next;
+            }
+        }
+        return low_ptr;
+    }
+};
