@@ -1,0 +1,32 @@
+//Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
+
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int,int> hashMap;
+        int sum=0;
+        int max_len=0;
+        //consider all 0 values as -1
+        // the problem now is fiding the maximum length subarray with sum=0
+        for(int i=0;i<n;i++)
+            nums[i]=(nums[i]==0)?-1:1;
+        for(int i=0;i<n;++i){
+            sum+=nums[i];
+            if(sum==0)
+                max_len=i+1;
+            //fill and use hash[], traverse sumleft[] from 0 to n-1
+            // is a value is not present in hash[], store its index in hash
+            //else calculate the difference of current index of sumleft[] and
+            //previously stored value in hash[]
+            if(hashMap.find(sum+n)!=hashMap.end()){
+                if(max_len<i-hashMap[sum+n])
+                    max_len = i - hashMap[sum+n];
+            }
+            else
+                hashMap[sum+n]=i;
+        }
+        return max_len;
+        }
+};
+// running time O(n)
