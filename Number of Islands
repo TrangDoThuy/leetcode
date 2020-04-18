@@ -1,0 +1,33 @@
+/*Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. 
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. 
+You may assume all four edges of the grid are all surrounded by water.
+*/
+class Solution {
+public:
+    void mark_visited(vector<vector<char>>& grid, int i, int j, int rows, int cols){
+        if(i<0||i>=rows||j<0||j>=cols||grid[i][j]!='1')
+            return;
+        grid[i][j]='2';//mark this item as visited
+        mark_visited(grid,i-1,j,rows,cols);
+        mark_visited(grid,i+1,j,rows,cols);
+        mark_visited(grid,i,j-1,rows,cols);
+        mark_visited(grid,i,j+1,rows,cols);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        
+        int rows = grid.size();
+        if(rows==0)
+            return 0;
+        int cols = grid[0].size();
+        int num_island=0;
+        for(int i=0;i<rows;++i){
+            for(int j=0;j<cols;++j){
+                if(grid[i][j]=='1'){
+                    mark_visited(grid,i,j,rows,cols);
+                    num_island+=1;
+                }
+            }
+        }
+        return num_island;
+    }
+};
