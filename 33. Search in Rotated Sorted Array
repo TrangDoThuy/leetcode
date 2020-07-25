@@ -1,0 +1,15 @@
+class Solution:
+    def linear_search(self, nums: List[int], target: int, low:int,high: int)->int:
+        #Locate the leftmost value exactly equal to target in nums[low high)
+        result = bisect.bisect_left(nums, target, low, high)
+        if result !=len(nums) and nums[result]==target:
+            return result
+        return -1
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+        min_index, min_value = min(enumerate(nums), key = operator.itemgetter(1))
+        if target >=nums[0] and min_index !=0:
+            return self.linear_search(nums,target,0,min_index)
+        else:
+            return self.linear_search(nums,target,min_index,len(nums))
