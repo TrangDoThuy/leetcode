@@ -1,0 +1,18 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        prev = float('inf')
+        ans = set()
+        for idx, num in enumerate(nums):
+            if num == prev:
+                continue
+            self.twoSum(nums[idx+1:],-num,ans)
+            prev = num
+        return ans
+    def twoSum(self,nums: List[int], target,ans):
+        cache = {}
+        for idx,num in enumerate(nums):
+            if (target - num) in cache:
+                ans.add((num,target-num,-target))
+            else:
+                cache[num] = idx
